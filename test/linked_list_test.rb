@@ -60,7 +60,7 @@ class LinkedListTest < Minitest::Test
     
   end
   
-  def test_can_find_nodes_at_specific_position
+  def test_can_find_node_at_specific_position
     list = LinkedList.new
     list.append("deep")
     list.append("woo")
@@ -69,5 +69,40 @@ class LinkedListTest < Minitest::Test
     list.append("blop")
     
     assert_equal "shi", list.find(2, 1)
+  end
+  
+  def test_can_find_multiple_nodes_at_position
+    list = LinkedList.new
+    list.append("deep")
+    list.append("woo")
+    list.append("shi")
+    list.append("shu")
+    list.append("blop")
+    
+    assert_equal "woo shi shu", list.find(1, 3)
+  end
+  
+  def test_a_node_includes_some_data
+    list = LinkedList.new
+    list.append("deep")
+    list.append("woo")
+    list.append("shi")
+    list.append("shu")
+    list.append("blop")
+    
+    assert list.include?("shu")
+    refute list.include?("riku")
+  end
+  
+  def test_can_pop_a_node
+    list = LinkedList.new
+    list.append("deep")
+    list.append("woo")
+    list.append("shi")
+    list.append("shu")
+    list.append("blop")
+    
+    assert_equal "blop", list.pop 
+    assert_equal "shu", list.pop
   end
 end

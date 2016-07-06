@@ -69,19 +69,46 @@ class LinkedList
   end
   
   def find(position, elements_to_return)
-    counter = 0 
-    if @head.nil?
-      puts "The list is empty"
-    else 
-      new_array = @string.split.map.with_index do |word, index|
-        break if elements_to_return == counter
-        if index >= position
-          counter += 1 
-          word
-        end
-      end
-      binding.pry
+    counter = 0
+    current = @head  
+    while position > counter 
+      current = current.next_node
+      counter += 1
+    end 
+    find_string = current.data.to_s
+    current_node = 0
+    while current_node < (elements_to_return - 1)
+      current = current.next_node
+      find_string += " " + current.data.to_s 
+      current_node += 1
     end
+    return find_string 
+  end
+  
+  def include?(word)
+    counter = 0 
+    current = @head 
+    while self.count > counter 
+      if current.data == word 
+        return true 
+      end
+      current = current.next_node
+      counter += 1
+    end
+    return false
+  end
+  
+  def pop 
+    current = @head
+    until current.next_node.next_node == nil
+      current = current.next_node
+    end
+    popped_node = current.next_node.data 
+    current.next_node = nil 
+    @count -= 1
+    @string = @string.split[0..-2].join(" ")
+    binding.pry
+    return popped_node
   end
   
   def to_string
