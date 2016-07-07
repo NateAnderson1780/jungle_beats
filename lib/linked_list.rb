@@ -95,11 +95,19 @@ class LinkedList
   
   def pop 
     current = @head
-    while current.next_node.next_node 
+    if @head.nil?
+      return "You have no nodes to pop!"
+    elsif @head.next_node == nil 
+      popped_node = @head.data 
+      @head = nil 
+    else
+      until current.next_node == nil 
+      previous = current 
       current = current.next_node
+      end
+      popped_node = current.data 
+      previous.next_node = nil  
     end
-    popped_node = current.next_node.data 
-    current.next_node = nil  
     @string = @string.split[0..-2].join(" ")
     return popped_node
   end

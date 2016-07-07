@@ -106,11 +106,24 @@ class LinkedListTest < Minitest::Test
     assert_equal "shu", list.pop
   end
   
-  def test_popping_more_elements_than_list_contains
+  def test_popping_more_nodes_than_list_contains
     list = LinkedList.new
     list.append("deep")
-    list.pop
+    list.append("shu")
+    
+    assert_equal "shu", list.pop
+  end
+  
+  def test_pop_with_single_node
+    list = LinkedList.new 
+    list.append("deep")
     
     assert_equal "deep", list.pop
+  end
+  
+  def test_pop_when_head_is_nil
+    list = LinkedList.new
+    
+    assert_equal "You have no nodes to pop!", list.pop 
   end
 end
