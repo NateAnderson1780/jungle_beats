@@ -9,7 +9,7 @@ class JungleBeat
   end
   
   def play
-    
+    `say -r 500 -v Boing #{@list.to_string}`
   end
   
   def append(input)
