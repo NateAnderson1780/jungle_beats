@@ -107,14 +107,10 @@ class LinkedListTest < Minitest::Test
   end
   
   def test_popping_more_elements_than_list_contains
-    skip
     list = LinkedList.new
     list.append("deep")
-    list.append("woo")
     list.pop
-    list.pop
-    list.pop 
     
-    
+    assert_equal "deep", list.pop
   end
 end
