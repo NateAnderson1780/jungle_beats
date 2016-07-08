@@ -17,7 +17,7 @@ class JungleBeatTest < Minitest::Test
     
     input = "deep doo ditt"
     
-    assert_equal input, jb.append(input)
+    assert_equal 3, jb.append(input)
     assert_equal "deep", jb.list.head.data 
     assert_equal "doo", jb.list.head.next_node.data
   end
@@ -28,8 +28,26 @@ class JungleBeatTest < Minitest::Test
     input1 = "deep doo ditt"
     input2 = "deep doo ditt"
     
-    assert_equal input1, jb.append(input1)
-    assert_equal input2, jb.append(input2)
+    assert_equal 3, jb.append(input1)
+    assert_equal 3, jb.append(input2)
     assert_equal 6, jb.count 
+  end
+  
+  def test_input_beat_part_of_defined_list
+    jb = JungleBeat.new
+    jb.append("deep")
+    
+    assert_equal 0, jb.append("Mississippi")
+    assert_equal "deep", jb.all
+  end
+  
+  def test_prepend_multiple_beats_and_invalid_beat
+    jb = JungleBeat.new
+    jb.append("deep")
+    
+    assert_equal 0, jb.append("Mississippi")
+    assert_equal "deep", jb.all
+    assert_equal 3, jb.prepend("woo woo woo Mississippi")
+    assert_equal "woo woo woo deep", jb.all 
   end
 end

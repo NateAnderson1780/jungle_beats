@@ -91,8 +91,24 @@ class LinkedListTest < Minitest::Test
     list.append("blop")
     
     assert list.include?("shu")
-    refute list.include?("riku")
+    assert list.include?("woo")
   end
+  
+  def test_a_node_includes_data_that_isnt_in_list
+    list = LinkedList.new
+    list.append("deep")
+    list.append("woo")
+    
+    
+    refute list.include?("riku")
+    refute list.include?("blah")
+  end
+  
+  def test_an_empty_list_will_tell_you_its_nil
+    list = LinkedList.new
+    
+    assert_equal "This list is nil.", list.include?("deep")
+  end 
   
   def test_can_pop_a_node
     list = LinkedList.new

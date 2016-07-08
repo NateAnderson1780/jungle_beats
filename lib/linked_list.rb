@@ -82,7 +82,10 @@ class LinkedList
   
   def include?(word)
     counter = 0 
-    current = @head 
+    current = @head
+    if @head.nil?
+      return "This list is nil."
+    end 
     while self.count > counter 
       if current.data == word 
         return true 
