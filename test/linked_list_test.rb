@@ -91,8 +91,24 @@ class LinkedListTest < Minitest::Test
     list.append("blop")
     
     assert list.include?("shu")
-    refute list.include?("riku")
+    assert list.include?("woo")
   end
+  
+  def test_a_node_includes_data_that_isnt_in_list
+    list = LinkedList.new
+    list.append("deep")
+    list.append("woo")
+    
+    
+    refute list.include?("riku")
+    refute list.include?("blah")
+  end
+  
+  def test_an_empty_list_will_tell_you_its_nil
+    list = LinkedList.new
+    
+    assert_equal "This list is nil.", list.include?("deep")
+  end 
   
   def test_can_pop_a_node
     list = LinkedList.new
@@ -104,5 +120,26 @@ class LinkedListTest < Minitest::Test
     
     assert_equal "blop", list.pop 
     assert_equal "shu", list.pop
+  end
+  
+  def test_popping_more_nodes_than_list_contains
+    list = LinkedList.new
+    list.append("deep")
+    list.append("shu")
+    
+    assert_equal "shu", list.pop
+  end
+  
+  def test_pop_with_single_node
+    list = LinkedList.new 
+    list.append("deep")
+    
+    assert_equal "deep", list.pop
+  end
+  
+  def test_pop_when_head_is_nil
+    list = LinkedList.new
+    
+    assert_equal "You have no nodes to pop!", list.pop 
   end
 end

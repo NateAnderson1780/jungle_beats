@@ -3,11 +3,9 @@ require 'pry'
 
 class LinkedList
   attr_reader :head
-  attr_accessor :count
   
   def initialize(head = nil)
     @head = head
-    @count = 0
     @string = ""
   end
   
@@ -16,12 +14,11 @@ class LinkedList
       @head = Node.new(data)
     else
       current = @head
-      until current.next_node == nil
+      while current.next_node 
         current = current.next_node
       end
     current.next_node = Node.new(data)
     end
-    @count += 1
     if @string == ""
       @string = data.to_s 
     else
@@ -43,7 +40,6 @@ class LinkedList
     else
       @string = data.to_s + " " + @string 
     end 
-    @count += 1
     return data  
   end
   
@@ -63,7 +59,6 @@ class LinkedList
       previous.next_node = new_node 
       new_node.next_node = node_after_data
     end 
-    @count += 1
     @string = @string.split(" ").insert(index, data.to_s).join(" ")
     return data  
   end
@@ -87,7 +82,10 @@ class LinkedList
   
   def include?(word)
     counter = 0 
-    current = @head 
+    current = @head
+    if @head.nil?
+      return "This list is nil."
+    end 
     while self.count > counter 
       if current.data == word 
         return true 
@@ -100,15 +98,31 @@ class LinkedList
   
   def pop 
     current = @head
-    until current.next_node.next_node == nil
+    if @head.nil?
+      return "You have no nodes to pop!"
+    elsif @head.next_node == nil 
+      popped_node = @head.data 
+      @head = nil 
+    else
+      until current.next_node == nil 
+      previous = current 
+      current = current.next_node
+      end
+      popped_node = current.data 
+      previous.next_node = nil  
+    end
+    @string = @string.split[0..-2].join(" ")
+    return popped_node
+  end
+  
+  def count
+    count = 0
+    current = @head
+    while current 
+      count += 1
       current = current.next_node
     end
-    popped_node = current.next_node.data 
-    current.next_node = nil 
-    @count -= 1
-    @string = @string.split[0..-2].join(" ")
-    binding.pry
-    return popped_node
+    count 
   end
   
   def to_string
